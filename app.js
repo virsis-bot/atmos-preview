@@ -63,6 +63,44 @@
     onMedia('(min-width: 960px)', function (mq) { if (mq.matches) setMenu(false); });
   });
 
+  /* ---------- Выпадающая панель «Услуги» (десктоп): наведение, клик, клавиатура ---------- */
+  safe('services-menu', function () {
+    var item = document.querySelector('.nav-services');
+    var trigger = item && item.querySelector('[data-services]');
+    if (!item || !trigger) return;
+    var desktop = window.matchMedia('(min-width: 960px)');
+    var hoverable = window.matchMedia('(hover: hover)');
+    var closeTimer = null;
+
+    function setOpen(open) {
+      clearTimeout(closeTimer);
+      item.classList.toggle('is-open', open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    trigger.addEventListener('click', function () {
+      if (!desktop.matches) return;
+      setOpen(!item.classList.contains('is-open'));
+    });
+    item.addEventListener('mouseenter', function () { if (desktop.matches && hoverable.matches) setOpen(true); });
+    item.addEventListener('mouseleave', function () {
+      if (!desktop.matches || !hoverable.matches) return;
+      closeTimer = setTimeout(function () { setOpen(false); }, 180);
+    });
+    item.addEventListener('focusout', function (e) {
+      if (desktop.matches && !item.contains(e.relatedTarget)) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && item.classList.contains('is-open')) { setOpen(false); trigger.focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (item.classList.contains('is-open') && !item.contains(e.target)) setOpen(false);
+    });
+    item.querySelectorAll('.services-panel a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+    onMedia('(min-width: 960px)', function () { setOpen(false); });
+  });
+
   /* ---------- Шапка: прозрачная над ночным экраном → тёмная подложка → белая, когда подъезжает панель расчёта ---------- */
   safe('header', function () {
     if (!header) return;
@@ -364,10 +402,10 @@
   }
 
   safe('scroll-motion', function () {
-    var obs = new IntersectionObserver(function (entries) {
+    var onEnter = function (entries, observer) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        obs.unobserve(e.target);
+        observer.unobserve(e.target);
         var el = e.target;
         if (el.hasAttribute('data-count')) { countUp(el); return; }
         // фото со шторкой (clip-path) отслеживаем через родителя — у скрытой картинки нет видимой площади
@@ -377,7 +415,10 @@
           t.classList.add('is-in');
         });
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+    };
+    var obs = new IntersectionObserver(onEnter, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+    // маршрут и рейс — сюжетные блоки: стартуют, когда поднялись примерно до середины экрана
+    var obsLate = new IntersectionObserver(onEnter, { rootMargin: '0px 0px -40% 0px', threshold: 0 });
 
     var armed = false;
     function arm() {
@@ -391,6 +432,8 @@
           var trigger = el.closest('picture') || el.parentElement;
           (trigger._revealTargets = trigger._revealTargets || []).push(el);
           obs.observe(trigger);
+        } else if (el.matches('.steps, .flight')) {
+          obsLate.observe(el);
         } else {
           obs.observe(el);
         }

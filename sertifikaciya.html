@@ -21,22 +21,37 @@
 <a class="skip-link" href="#main">Перейти к содержанию</a>
 
 <header class="site-header" data-header>
-  <div class="wrap header-inner">
+  <div class="wrap">
+    <div class="header-inner">
     <a class="logo" href="index.html" aria-label="Атмосфера — на главную">АТМОСФЕРА</a>
     <nav class="main-nav" id="main-nav" aria-label="Основное меню">
-      <ul>
-        <li><a href="logistika.html">Логистика</a></li>
-        <li><a href="tamozhennoe-oformlenie.html">Таможенное оформление</a></li>
-        <li><a href="sertifikaciya.html" aria-current="page">Сертификация</a></li>
-        <li><a href="ved.html">ВЭД</a></li>
-        <li><a href="#team">О нас</a></li>
-        <li><a href="#contacts">Контакты</a></li>
+      <ul class="nav-list">
+        <li class="nav-services is-current">
+          <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="services-panel" data-services>Услуги<span class="chev" aria-hidden="true"></span></button>
+          <div class="services-panel" id="services-panel">
+            <p class="services-label">Услуги</p>
+            <ul class="services-grid">
+            <li><a class="svc-link" href="logistika.html"><b>Логистика</b><span>Авиа, море, авто, сборные грузы</span><em>от 12 000 ₽</em></a></li>
+            <li><a class="svc-link" href="tamozhennoe-oformlenie.html"><b>Таможенное оформление</b><span>Импорт, экспорт, временный ввоз</span><em>от 15 000 ₽</em></a></li>
+            <li><a class="svc-link" href="sertifikaciya.html" aria-current="page"><b>Сертификация</b><span>19 видов сертификатов и разрешений</span><em>от 5 000 ₽</em></a></li>
+            <li><a class="svc-link" href="ved.html"><b>ВЭД-аутсорсинг</b><span>Ваш отдел ВЭД под ключ</span><em>от 12 000 ₽</em></a></li>
+            </ul>
+            <div class="services-more"><span>Часто ищут</span><a href="notifikaciya-fsb.html">Нотификация ФСБ</a><a href="deklaraciya-eaes.html">Декларация ЕАЭС</a><a href="tamozhennoe-oformlenie.html#vremennyj-vvoz">Временный ввоз</a></div>
+          </div>
+        </li>
+        <li><a class="nav-link" href="#team">О нас</a></li>
+        <li><a class="nav-link" href="#contacts">Контакты</a></li>
       </ul>
-      <a class="nav-phone" href="tel:+74957400534">+7 495 740-05-34</a>
+      <div class="nav-actions">
+        <a class="btn btn-light" href="#calc" data-to-phone>Получить расчёт</a>
+        <a class="btn btn-outline-light" href="tel:+74957400534">Позвонить</a>
+        <a class="nav-phone" href="tel:+74957400534">+7 495 740-05-34</a>
+      </div>
     </nav>
     <a class="header-phone" href="tel:+74957400534">+7 495 740-05-34</a>
     <a class="btn btn-sm header-cta" href="#calc">Получить расчёт</a>
     <button class="burger" type="button" data-burger aria-controls="main-nav" aria-expanded="false" aria-label="Открыть меню"><span class="burger-lines"></span></button>
+    </div>
   </div>
 </header>
 
