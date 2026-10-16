@@ -100,10 +100,10 @@
                 <option>Сертификат связи (ССС)</option>
                 <option>Нотификация ФСБ</option>
                 <option>Заключение ГРЧЦ</option>
-                <option>Разрешение Роскомнадзора на временный ввоз</option>
-                <option>ТР ТС «Машины и оборудование»</option>
-                <option>ТР ТС «Низковольтное оборудование»</option>
-                <option>ТР ТС «Электромагнитная совместимость»</option>
+                <option value="Разрешение Роскомнадзора на временный ввоз">Роскомнадзор: временный ввоз</option>
+                <option value="ТР ТС «Машины и оборудование»">Машины и оборудование (ТР ТС 010)</option>
+                <option value="ТР ТС «Низковольтное оборудование»">Низковольтное (ТР ТС 004)</option>
+                <option value="ТР ТС «Электромагнитная совместимость»">ЭМС (ТР ТС 020)</option>
                 <option>Декларация ГОСТ Р</option>
                 <option>Отказное письмо</option>
                 <option>Лицензия Минпромторга</option>
@@ -181,22 +181,12 @@
         <li class="problem"><h3>Заниженные сроки</h3><p>Многие называют срок вдвое короче реального, чтобы получить заказ, — потом сроки срываются.</p></li>
         <li class="problem"><h3>Новый документ на каждую модель</h3><p>Без оформления на серию каждая новая модель — это новый сертификат.</p></li>
       </ul>
-    </div>
-  </section>
-
-  <section class="section" id="series" aria-labelledby="series-title">
-    <div class="wrap">
-      <h2 class="sr-only" id="series-title">Сертификат на серию</h2>
       <div class="tip" data-reveal>
         <p class="tip-figure">50 000 ₽<small>в среднем экономит один сертификат на серию</small></p>
         <div>
           <h3>Сертификат на серию товаров</h3>
           <p>В сертификате указывают основное название модели, а модификации входят в серию. Когда выйдет новая модель, новый сертификат не понадобится.</p>
         </div>
-      </div>
-      <div class="cta-strip" data-reveal>
-        <p>Не уверены, декларация нужна или сертификат? Опишите товар — определим по коду ТН ВЭД.</p>
-        <a class="btn btn-dark" href="#calc" data-to-phone>Определить документ</a>
       </div>
     </div>
   </section>
@@ -354,6 +344,8 @@
         <ul>
           <li><a href="logistika.html">Логистика</a></li>
           <li><a href="sertifikaciya.html">Сертификация</a></li>
+          <li class="sub"><a href="notifikaciya-fsb.html">Нотификация ФСБ</a></li>
+          <li class="sub"><a href="deklaraciya-eaes.html">Декларация ЕАЭС</a></li>
           <li><a href="tamozhennoe-oformlenie.html">Таможенное оформление</a></li>
           <li><a href="ved.html"><span class="nowrap">ВЭД-аутсорсинг</span></a></li>
         </ul>
@@ -368,7 +360,7 @@
 
 <nav class="mobile-bar" aria-label="Быстрая связь">
   <a class="btn btn-outline-light" href="tel:+74957400534">Позвонить</a>
-  <a class="btn btn-light" href="#calc" data-to-phone>Заявка</a>
+  <a class="btn btn-light" href="#calc" data-to-phone>Получить расчёт</a>
 </nav>
 
 <dialog class="lightbox" id="lightbox" aria-label="Благодарственное письмо">

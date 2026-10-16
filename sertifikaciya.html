@@ -101,10 +101,10 @@
                 <option>Сертификат связи (ССС)</option>
                 <option>Нотификация ФСБ</option>
                 <option>Заключение ГРЧЦ</option>
-                <option>Разрешение Роскомнадзора на временный ввоз</option>
-                <option>ТР ТС «Машины и оборудование»</option>
-                <option>ТР ТС «Низковольтное оборудование»</option>
-                <option>ТР ТС «Электромагнитная совместимость»</option>
+                <option value="Разрешение Роскомнадзора на временный ввоз">Роскомнадзор: временный ввоз</option>
+                <option value="ТР ТС «Машины и оборудование»">Машины и оборудование (ТР ТС 010)</option>
+                <option value="ТР ТС «Низковольтное оборудование»">Низковольтное (ТР ТС 004)</option>
+                <option value="ТР ТС «Электромагнитная совместимость»">ЭМС (ТР ТС 020)</option>
                 <option>Декларация ГОСТ Р</option>
                 <option>Отказное письмо</option>
                 <option>Лицензия Минпромторга</option>
@@ -137,6 +137,41 @@
           <button class="btn btn-dark" type="submit">Получить расчёт</button>
           </div>
         </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="goods" aria-labelledby="goods-title">
+    <div class="wrap">
+      <div class="section-head section-head--split" data-reveal>
+        <h2 id="goods-title">Что вы везёте?</h2>
+        <p>Найдите свой товар — подскажем, какие документы обычно нужны. Точный список определим по коду ТН ВЭД.</p>
+      </div>
+      <div class="docs docs--2 goods">
+        <article class="doc">
+          <span class="doc-cat">Чаще всего нужно: декларация ЕАЭС</span>
+          <h3>Электроника и бытовая техника</h3>
+          <p>Техрегламенты о низковольтном оборудовании и электромагнитной совместимости.</p>
+          <a class="doc-cta" href="deklaraciya-eaes.html">Подробнее о декларации ЕАЭС</a>
+        </article>
+        <article class="doc">
+          <span class="doc-cat">Чаще всего нужно: нотификация ФСБ</span>
+          <h3>Wi‑Fi, Bluetooth и радиооборудование</h3>
+          <p>Нотификация ФСБ, заключение ГРЧЦ и лицензия Минпромторга на импорт РЭС и ВЧУ.</p>
+          <a class="doc-cta" href="notifikaciya-fsb.html">Подробнее о нотификации</a>
+        </article>
+        <article class="doc">
+          <span class="doc-cat">Чаще всего нужно: СГР</span>
+          <h3>Косметика, бытовая химия, детское питание</h3>
+          <p>Свидетельство о государственной регистрации подтверждает санитарно-эпидемиологическую безопасность.</p>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="СГР">Узнать срок и стоимость</a>
+        </article>
+        <article class="doc">
+          <span class="doc-cat">Нужны испытания в лаборатории</span>
+          <h3>Сложные товары: дроны, игрушки, радиочастотка</h3>
+          <p>Работаем с лабораториями по сложным категориям. Одними из первых сертифицировали технику DJI.</p>
+          <a class="doc-cta" href="#calc" data-to-phone>Обсудить товар</a>
+        </article>
       </div>
     </div>
   </section>
@@ -199,126 +234,126 @@
           <span class="doc-cat">Радио и связь</span>
           <h3>Декларация связи</h3>
           <p>Обязательна для средств связи, которые работают в единой сети электросвязи РФ. Перечень установлен Правительством и включает более 200 видов изделий.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Декларация связи">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Декларация связи">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="radio">
           <span class="doc-cat">Радио и связь</span>
           <h3>Сертификат связи (ССС)</h3>
           <p>Подтверждает электромагнитную совместимость, безопасность и качество сигнала. Нужен для продажи оборудования, работающего в сетях связи общего пользования.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Сертификат связи (ССС)">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Сертификат связи (ССС)">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="radio">
           <span class="doc-cat">Радио и связь</span>
           <h3>Нотификация ФСБ</h3>
           <p>Для оборудования с шифровальными средствами — чаще всего беспроводного (РЭС) или с программным обеспечением. Нужна при получении лицензии на импорт РЭС и ВЧУ.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Нотификация ФСБ">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Нотификация ФСБ">Узнать срок и стоимость</a>
           <a class="doc-more" href="notifikaciya-fsb.html">Подробнее о нотификации</a>
         </article>
         <article class="doc" data-doc="radio">
           <span class="doc-cat">Радио и связь</span>
           <h3>Заключение ГРЧЦ</h3>
           <p>Выдаётся после измерений РЭС и ВЧУ на соответствие нормам ГКРЧ, нужен образец. Часть радиочастот в РФ запрещена — это важно знать до подачи.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Заключение ГРЧЦ">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Заключение ГРЧЦ">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="radio">
           <span class="doc-cat">Радио и связь</span>
           <h3>Разрешение Роскомнадзора на временный ввоз</h3>
           <p>Для ввоза РЭС и ВЧУ на измерения в ГРЧЦ или на выставку. Выдаётся на шесть месяцев.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Разрешение Роскомнадзора на временный ввоз">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Разрешение Роскомнадзора на временный ввоз">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="tr">
           <span class="doc-cat">Техрегламенты и ГОСТ</span>
           <h3>ТР ТС «Машины и оборудование»</h3>
           <p>Подтверждает минимальные требования безопасности для машин и оборудования на территории Таможенного союза.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="ТР ТС «Машины и оборудование»">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="ТР ТС «Машины и оборудование»">Узнать срок и стоимость</a>
           <a class="doc-more" href="deklaraciya-eaes.html">Подробнее о декларации ЕАЭС</a>
         </article>
         <article class="doc" data-doc="tr">
           <span class="doc-cat">Техрегламенты и ГОСТ</span>
           <h3>ТР ТС «Низковольтное оборудование»</h3>
           <p>Подтверждает безопасность низковольтного оборудования и сообщает потребителю о его назначении.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="ТР ТС «Низковольтное оборудование»">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="ТР ТС «Низковольтное оборудование»">Узнать срок и стоимость</a>
           <a class="doc-more" href="deklaraciya-eaes.html">Подробнее о декларации ЕАЭС</a>
         </article>
         <article class="doc" data-doc="tr">
           <span class="doc-cat">Техрегламенты и ГОСТ</span>
           <h3>ТР ТС «Электромагнитная совместимость»</h3>
           <p>Для устройств, создающих электромагнитное излучение: чтобы они не мешали работе другой техники.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="ТР ТС «Электромагнитная совместимость»">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="ТР ТС «Электромагнитная совместимость»">Узнать срок и стоимость</a>
           <a class="doc-more" href="deklaraciya-eaes.html">Подробнее о декларации ЕАЭС</a>
         </article>
         <article class="doc" data-doc="tr">
           <span class="doc-cat">Техрегламенты и ГОСТ</span>
           <h3>Декларация ГОСТ Р</h3>
           <p>Разрешает оборот товара в РФ и закрепляет ответственность производителя за качество продукции.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Декларация ГОСТ Р">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Декларация ГОСТ Р">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="tr">
           <span class="doc-cat">Техрегламенты и ГОСТ</span>
           <h3>Отказное письмо</h3>
           <p>Подтверждает, что товар не подлежит обязательной сертификации и декларированию. Пригодится для покупателей и надзорных органов.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Отказное письмо">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Отказное письмо">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="lic">
           <span class="doc-cat">Лицензии и заключения</span>
           <h3>Лицензия Минпромторга</h3>
           <p>На экспорт или импорт товаров с мерами нетарифного регулирования. Выдаётся на основании заключения уполномоченного органа.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Лицензия Минпромторга">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Лицензия Минпромторга">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="lic">
           <span class="doc-cat">Лицензии и заключения</span>
           <h3>Заключение ФСТЭК</h3>
           <p>Экспертиза, которая устанавливает, относится ли продукция к контролируемым категориям. Если нет — дополнительных документов для ввоза не нужно.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Заключение ФСТЭК">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Заключение ФСТЭК">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="lic">
           <span class="doc-cat">Лицензии и заключения</span>
           <h3>Заключение ФСВТС</h3>
           <p>Подтверждает, что товар не является продукцией военного назначения. Таможня запрашивает его для части товаров.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Заключение ФСВТС">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Заключение ФСВТС">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="lic">
           <span class="doc-cat">Лицензии и заключения</span>
           <h3>Заключение Росприроднадзора</h3>
           <p>Для лицензии Минпромторга на импорт и экспорт опасных отходов, озоноразрушающих веществ, ядовитых веществ, средств защиты растений и других.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Заключение Росприроднадзора">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Заключение Росприроднадзора">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="lic">
           <span class="doc-cat">Лицензии и заключения</span>
           <h3>Заключение Минсельхоза</h3>
           <p>Для ввоза средств защиты растений и ряда продуктов для сельского хозяйства и животноводства.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Заключение Минсельхоза">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Заключение Минсельхоза">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="lic">
           <span class="doc-cat">Лицензии и заключения</span>
           <h3>Разрешение на прекурсоры</h3>
           <p>Заключение ГУНК МВД для лицензии на ввоз и вывоз прекурсоров — они встречаются даже в красках для принтеров и стоматологических материалах.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Разрешение на прекурсоры">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Разрешение на прекурсоры">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="med">
           <span class="doc-cat">Здоровье и происхождение</span>
           <h3>СГР</h3>
           <p>Подтверждает санитарно-эпидемиологическую безопасность: косметика, бытовая химия, детское питание, средства гигиены и другое.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="СГР">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="СГР">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="med">
           <span class="doc-cat">Здоровье и происхождение</span>
           <h3>Регистрационное удостоверение</h3>
           <p>Выдаёт Росздравнадзор на медицинское оборудование, материалы и технику — без него товар нельзя продавать в РФ.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Регистрационное удостоверение">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Регистрационное удостоверение">Узнать срок и стоимость</a>
         </article>
         <article class="doc" data-doc="med">
           <span class="doc-cat">Здоровье и происхождение</span>
           <h3>Сертификат СТ-1</h3>
           <p>Подтверждает происхождение товара из стран СНГ и частично или полностью освобождает от пошлин. Оформляется на каждую партию.</p>
-          <a class="doc-cta" href="#calc" data-doc-pick="Сертификат СТ-1">Узнать срок и стоимость</a>
+          <a class="doc-cta" href="#calc" data-to-phone data-doc-pick="Сертификат СТ-1">Узнать срок и стоимость</a>
         </article>
+        <div class="cta-strip">
+          <p>Нужного документа нет в списке? Расскажите о товаре — подскажем, что требуется для ввоза.</p>
+          <a class="btn btn-dark" href="#calc" data-to-phone>Получить консультацию</a>
+        </div>
       </div>
       <p class="doc-count" data-doc-count aria-live="polite">Показано: 19 документов</p>
-      <div class="cta-strip">
-        <p>Нужного документа нет в списке? Расскажите о товаре — подскажем, что требуется для ввоза.</p>
-        <a class="btn btn-dark" href="#calc" data-to-phone>Получить консультацию</a>
-      </div>
     </div>
   </section>
 
@@ -492,6 +527,8 @@
         <ul>
           <li><a href="logistika.html">Логистика</a></li>
           <li><a href="sertifikaciya.html">Сертификация</a></li>
+          <li class="sub"><a href="notifikaciya-fsb.html">Нотификация ФСБ</a></li>
+          <li class="sub"><a href="deklaraciya-eaes.html">Декларация ЕАЭС</a></li>
           <li><a href="tamozhennoe-oformlenie.html">Таможенное оформление</a></li>
           <li><a href="ved.html"><span class="nowrap">ВЭД-аутсорсинг</span></a></li>
         </ul>
@@ -506,7 +543,7 @@
 
 <nav class="mobile-bar" aria-label="Быстрая связь">
   <a class="btn btn-outline-light" href="tel:+74957400534">Позвонить</a>
-  <a class="btn btn-light" href="#calc" data-to-phone>Заявка</a>
+  <a class="btn btn-light" href="#calc" data-to-phone>Получить расчёт</a>
 </nav>
 
 <dialog class="lightbox" id="lightbox" aria-label="Благодарственное письмо">

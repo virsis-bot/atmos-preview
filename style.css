@@ -67,13 +67,13 @@ button { font: inherit; color: inherit; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 56px; padding: 0 30px;
+  min-height: 54px; padding: 0 28px;
   border-radius: 999px; border: 1px solid transparent;
-  font: 500 16px/1 var(--font); letter-spacing: -.005em;
+  font: 500 13px/1 var(--font); letter-spacing: .08em; text-transform: uppercase;
   text-decoration: none; white-space: nowrap; cursor: pointer;
   transition: background-color .2s, color .2s, border-color .2s;
 }
-.btn-sm { min-height: 44px; padding: 0 22px; font-size: 15px; }
+.btn-sm { min-height: 44px; padding: 0 20px; font-size: 12px; }
 .btn-light { background: var(--paper); color: var(--ink); }
 .btn-light:hover { background: var(--glow); }
 .btn-outline-light { border-color: rgba(255, 255, 255, .38); color: var(--on-night); background: transparent; }
@@ -95,7 +95,7 @@ button { font: inherit; color: inherit; }
   pointer-events: auto; position: relative;
   height: 60px; display: flex; align-items: center; gap: 28px;
   /* капсула выступает за поля контента, а логотип и кнопка стоят ровно по краям колонки */
-  padding: 0 8px 0 24px; margin-inline: -24px -8px; border-radius: 999px;
+  padding: 0 8px 0 16px; margin-inline: -16px; border-radius: 999px;
   border: 1px solid transparent;
   transition: background-color .35s, border-color .35s, box-shadow .35s, color .35s;
 }
@@ -594,7 +594,8 @@ dialog.lightbox::backdrop { background: rgba(4, 6, 11, .82); }
 .final-lead { margin-top: 24px; color: var(--on-night-2); font-size: var(--fs-lead); max-width: 26em; }
 .final-contacts { margin-top: clamp(40px, 5vw, 64px); display: grid; gap: 6px; }
 .final-contacts .big-phone { color: var(--on-night); font-size: clamp(28px, 3vw, 44px); font-weight: 500; letter-spacing: -.03em; text-decoration: none; font-feature-settings: "tnum" 1; }
-.final-contacts a { text-decoration: none; color: var(--on-night-2); }
+.final-contacts a { text-decoration: none; color: var(--on-night); }
+.final-contacts span { color: var(--on-night-2); }
 .final-contacts a:hover { color: var(--paper); }
 .final .quote-card { box-shadow: none; }
 .final-form { display: grid; gap: 14px; }
@@ -624,7 +625,7 @@ dialog.lightbox::backdrop { background: rgba(4, 6, 11, .82); }
     background: rgba(4, 6, 11, .92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   }
   .mobile-bar .btn { min-height: 50px; padding: 0 12px; }
-  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+  .site-footer { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
   body.menu-open .mobile-bar { display: none; }
 }
 
@@ -865,3 +866,72 @@ dialog.lightbox::backdrop { background: rgba(4, 6, 11, .82); }
 .hero h1 { hyphens: auto; -webkit-hyphens: auto; }
 .split .w { max-width: 100%; }
 .nowrap { white-space: nowrap; }
+
+/* ---------- Правки после UX-ревью ---------- */
+.site-footer li.sub a { padding-left: 14px; color: var(--on-night-2); font-size: 14px; }
+.site-footer li.sub a::before { content: "— "; }
+body.lead-sent .mobile-bar [data-to-phone] { display: none; }
+body.lead-sent .mobile-bar { grid-template-columns: 1fr; }
+
+@media (max-width: 959px) {
+  /* открытое меню: шапка непрозрачная, пункты не заезжают под логотип */
+  .site-header.is-open .header-inner { background: var(--night); }
+  .svc-link { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 14px 0; }
+  .svc-link b { font-size: 22px; }
+  .svc-link em { grid-row: auto; grid-column: 1; }
+  /* кнопки меню всегда видны внизу */
+  .nav-actions { position: sticky; bottom: calc(-28px - env(safe-area-inset-bottom, 0px)); margin-inline: calc(-1 * var(--pad)); padding: 16px var(--pad) calc(16px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to bottom, rgba(4, 6, 11, 0), var(--night) 24%); }
+  /* на телефоне действия первого экрана дублируют нижнюю панель — убираем, форма поднимается в первый экран */
+  .hero .hero-actions { display: none; }
+}
+@media (max-width: 599px) {
+  /* каталог документов на телефоне: название и кнопка, без длинного описания */
+  .doc { padding: 18px 20px 20px; gap: 6px; }
+  .doc p { display: none; }
+}
+
+/* ---------- Правки после ревью дизайнера ---------- */
+.tip .tip-figure { color: var(--on-night); margin-top: 0; }
+.main-nav .svc-link[aria-current] { text-decoration: none; }
+h1, h2, .verdict, .case-text { text-wrap: balance; }
+.doc .doc-more { order: 1; margin-top: auto; }
+.doc:has(.doc-more) .doc-cta { order: 2; margin-top: 10px; }
+.docs > .cta-strip { grid-column: span 2; margin: 0; }
+@media (max-width: 1099px) { .docs > .cta-strip { grid-column: 1 / -1; } }
+@media (max-width: 599px) { .ticker ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; } }
+@media (max-width: 959px) {
+  .nav-actions { background: linear-gradient(to bottom, rgba(4, 6, 11, 0), var(--night) 45%); padding-top: 32px; }
+  .nav-phone { display: none !important; }
+  .step:last-child { padding-bottom: 0; }
+  .steps::before, .steps::after { bottom: auto; height: calc(100% - 40px); }
+}
+.letter img { filter: brightness(1.04) contrast(1.04); }
+
+/* ---------- Манифест и полоса цифр (главная) ---------- */
+.manifest-text { font-size: var(--fs-h2-side); line-height: 1.08; letter-spacing: -.035em; max-width: 22em; }
+.manifest-text span { color: var(--graphite); }
+.figures--strip { grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: clamp(48px, 6vw, 88px); }
+.figures--strip .figure b { font-size: clamp(36px, 4.2vw, 64px); }
+@media (max-width: 959px) { .figures--strip { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; } .figures--strip .figure:last-child { grid-column: 1 / -1; } }
+
+/* ---------- Вкладки в форме расчёта ---------- */
+.quote-tabs { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 18px; border-radius: 999px; background: var(--mist); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.quote-tabs::-webkit-scrollbar { display: none; }
+.quote-tabs button {
+  min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; cursor: pointer; white-space: nowrap;
+  font: 500 12px/1 var(--font); letter-spacing: .08em; text-transform: uppercase; color: var(--graphite); transition: background-color .2s, color .2s;
+}
+.quote-tabs button:hover { color: var(--ink); }
+.quote-tabs button[aria-selected="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 3px rgba(4, 6, 11, .12); }
+.quote-grid--tabs .field--service { display: none; }
+.quote-grid--tabs .field[hidden] { display: none; }
+@media (min-width: 1100px) { .quote-grid--tabs { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); } }
+.ticker li a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s, color .2s; }
+.ticker li a:hover { border-bottom-color: currentColor; color: var(--paper); }
+.goods .doc { background: var(--mist); border-color: transparent; }
+.goods .doc-cat { color: var(--cobalt); }
+@media (max-width: 599px) {
+  .quote-tabs { display: grid; grid-template-columns: 1fr 1fr; width: 100%; border-radius: 22px; }
+  .quote-tabs button { padding: 0 8px; }
+  .hero { min-height: 0; }
+}

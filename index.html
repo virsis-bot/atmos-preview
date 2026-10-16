@@ -80,8 +80,14 @@
           <p>Перезвоним, уточним детали и назовём цену и срок.</p>
         </div>
         <form data-form novalidate>
-          <div class="quote-grid">
-            <div class="field">
+          <div class="quote-tabs" role="tablist" aria-label="Что нужно" data-quote-tabs>
+            <button type="button" role="tab" aria-selected="true" data-tab="Доставка груза">Доставка</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="Сертификация">Сертификация</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="Таможенное оформление">Таможня</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="ВЭД под ключ">ВЭД</button>
+          </div>
+          <div class="quote-grid quote-grid--tabs">
+            <div class="field field--service">
               <label for="calc-service">Услуга</label>
               <select id="calc-service" name="service" data-service-select>
                 <option>Доставка груза</option>
@@ -91,7 +97,7 @@
                 <option>Пока не знаю</option>
               </select>
             </div>
-            <div class="field">
+            <div class="field field--from">
               <label for="calc-from">Откуда</label>
               <select id="calc-from" name="from">
                 <option>Китай</option>
@@ -121,6 +127,19 @@
           <button class="btn btn-dark" type="submit">Получить расчёт</button>
           </div>
         </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section manifest" id="about" aria-labelledby="manifest-title">
+    <div class="wrap">
+      <h2 class="manifest-text" id="manifest-title" data-reveal="title">Логистика, таможня и сертификация. <span>Одна команда — от склада в Китае до вашего склада.</span></h2>
+      <div class="figures figures--strip">
+        <div class="figure"><b>2012</b><p>работаем с этого года</p></div>
+        <div class="figure"><b><span data-count="300">300</span>+</b><p>клиентов</p></div>
+        <div class="figure"><b><span data-count="23.5" data-decimals="1">23,5</span><small>млн ₽</small></b><p>сэкономили клиентам</p></div>
+        <div class="figure"><b><span data-count="2300">2300</span><small>ч</small></b><p>на столько сократили простои</p></div>
+        <div class="figure"><b><span data-count="19">19</span></b><p>видов документов оформляем</p></div>
       </div>
     </div>
   </section>
@@ -185,8 +204,8 @@
           <h2 id="cert-title">Сертификация сложных товаров под ключ</h2>
           <p class="lead">Более 12 лет в сертификации разных групп товаров. Оформляем 19 видов документов — от сертификатов и деклараций ЕАЭС до нотификации ФСБ и заключения ГРЧЦ.</p>
           <div class="hero-actions">
-            <a class="btn btn-light" href="sertifikaciya.html">Все виды документов</a>
-            <a class="btn btn-outline-light" href="#calc" data-service="Сертификация">Получить расчёт</a>
+            <a class="btn btn-light" href="#calc" data-service="Сертификация" data-to-phone>Получить расчёт</a>
+            <a class="btn btn-outline-light" href="sertifikaciya.html">Все виды документов</a>
           </div>
         </div>
         <ul class="cert-points" data-reveal>
@@ -199,7 +218,7 @@
     </div>
     <div class="wrap ticker">
       <ul aria-label="Документы, которые оформляем чаще всего">
-        <li>Декларация ГОСТ Р</li><li>ТР ТС ЭМС</li><li>ТР ТС НВО</li><li>ТР ТС МИО</li><li>Нотификация ФСБ</li><li>Заключение ГРЧЦ</li><li>Декларация связи</li><li>Сертификат связи</li><li>Лицензия Минпромторга</li><li>СГР</li><li>Сертификат СТ-1</li><li>Отказное письмо</li>
+        <li><a href="deklaraciya-eaes.html">Декларация ГОСТ Р</a></li><li><a href="deklaraciya-eaes.html">ТР ТС ЭМС</a></li><li><a href="deklaraciya-eaes.html">ТР ТС НВО</a></li><li><a href="deklaraciya-eaes.html">ТР ТС МИО</a></li><li><a href="notifikaciya-fsb.html">Нотификация ФСБ</a></li><li><a href="sertifikaciya.html#docs">Заключение ГРЧЦ</a></li><li><a href="sertifikaciya.html#docs">Декларация связи</a></li><li><a href="sertifikaciya.html#docs">Сертификат связи</a></li><li><a href="sertifikaciya.html#docs">Лицензия Минпромторга</a></li><li><a href="sertifikaciya.html#docs">СГР</a></li><li><a href="sertifikaciya.html#docs">Сертификат СТ-1</a></li><li><a href="sertifikaciya.html#docs">Отказное письмо</a></li>
       </ul>
     </div>
   </section>
@@ -207,7 +226,7 @@
   <section class="section" id="route" aria-labelledby="route-title">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <h2 id="route-title">Полный цикл: от склада производителя до вашего</h2>
+        <h2 id="route-title">Полный цикл: от склада производителя до вашего склада</h2>
       </div>
       <ol class="steps">
         <li class="step"><span class="step-n">1</span><h3>Забираем</h3><p>У поставщика, заранее заказываем транспорт</p></li>
@@ -238,19 +257,6 @@
         <li>Транспорт в Европе для сборных грузов</li>
         <li>Таможенные брокеры и юристы в команде</li>
       </ul>
-    </div>
-  </section>
-
-  <section class="section section--mist" id="case" aria-labelledby="case-title">
-    <div class="wrap">
-      <h2 class="sr-only" id="case-title">Кейс DJI и результаты</h2>
-      <p class="case-text" data-reveal><span>Кейс DJI</span>Одними из первых в России сертифицировали сложнейшую технику DJI — аудио, видео и дроны. Сделали отлично.</p>
-      <div class="figures">
-        <div class="figure"><b><span data-count="2300">2300</span><small>ч</small></b><p>на столько сократили простои</p></div>
-        <div class="figure"><b><span data-count="23.5" data-decimals="1">23,5</span><small>млн ₽</small></b><p>сэкономили клиентам</p></div>
-        <div class="figure"><b>300+</b><p>клиентов</p></div>
-        <div class="figure"><b>2012</b><p>на рынке с этого года</p></div>
-      </div>
     </div>
   </section>
 
@@ -415,6 +421,8 @@
         <ul>
           <li><a href="logistika.html">Логистика</a></li>
           <li><a href="sertifikaciya.html">Сертификация</a></li>
+          <li class="sub"><a href="notifikaciya-fsb.html">Нотификация ФСБ</a></li>
+          <li class="sub"><a href="deklaraciya-eaes.html">Декларация ЕАЭС</a></li>
           <li><a href="tamozhennoe-oformlenie.html">Таможенное оформление</a></li>
           <li><a href="ved.html"><span class="nowrap">ВЭД-аутсорсинг</span></a></li>
         </ul>
@@ -429,7 +437,7 @@
 
 <nav class="mobile-bar" aria-label="Быстрая связь">
   <a class="btn btn-outline-light" href="tel:+74957400534">Позвонить</a>
-  <a class="btn btn-light" href="#calc" data-to-phone>Заявка</a>
+  <a class="btn btn-light" href="#calc" data-to-phone>Получить расчёт</a>
 </nav>
 
 <dialog class="lightbox" id="lightbox" aria-label="Благодарственное письмо">

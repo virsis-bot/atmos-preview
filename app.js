@@ -147,7 +147,7 @@
     var docSelect = document.querySelector('[data-doc-select]');
     document.querySelectorAll('[data-service]').forEach(function (link) {
       link.addEventListener('click', function () {
-        if (serviceSelect) serviceSelect.value = link.getAttribute('data-service');
+        if (serviceSelect) { serviceSelect.value = link.getAttribute('data-service'); serviceSelect.dispatchEvent(new Event('change')); }
       });
     });
     document.querySelectorAll('[data-doc-pick]').forEach(function (link) {
@@ -155,6 +155,39 @@
         if (docSelect) docSelect.value = link.getAttribute('data-doc-pick');
       });
     });
+  });
+
+  /* ---------- Вкладки услуг в форме расчёта: меняют услугу и поля под неё ---------- */
+  safe('quote-tabs', function () {
+    var tabs = document.querySelector('[data-quote-tabs]');
+    if (!tabs) return;
+    var form = tabs.closest('form');
+    var select = form.querySelector('[data-service-select]');
+    var from = form.querySelector('.field--from');
+    var cargoLabel = form.querySelector('label[for="calc-cargo"]');
+    var cargo = form.querySelector('#calc-cargo');
+    var preset = {
+      'Доставка груза': ['Что везём', 'Электроника, 2 палеты', true],
+      'Сертификация': ['Что сертифицируем', 'Роутеры с Wi‑Fi, 3 модели', false],
+      'Таможенное оформление': ['Что ввозим', 'Оборудование, 1 партия', true],
+      'ВЭД под ключ': ['Что и откуда возите', 'Электроника из Шэньчжэня, 2 раза в месяц', false]
+    };
+    function apply(value) {
+      tabs.querySelectorAll('[data-tab]').forEach(function (b) { b.setAttribute('aria-selected', b.getAttribute('data-tab') === value ? 'true' : 'false'); });
+      var p = preset[value];
+      if (!p) return;
+      if (cargoLabel) cargoLabel.textContent = p[0];
+      if (cargo) cargo.placeholder = p[1];
+      if (from) from.hidden = !p[2];
+    }
+    tabs.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-tab]');
+      if (!b) return;
+      select.value = b.getAttribute('data-tab');
+      apply(select.value);
+    });
+    select.addEventListener('change', function () { apply(select.value); });
+    apply(select.value);
   });
 
   /* ---------- Телефон: маска для российских номеров, иностранные не трогаем ---------- */
@@ -255,6 +288,7 @@
           '<p>Перезвоним, уточним детали и назовём цену и срок.</p>' +
           (phoneLink ? '<p class="form-success-alt">Если срочно — позвоните: <a href="' + phoneLink.getAttribute('href') + '">' + phoneLink.textContent.trim() + '</a></p>' : '');
         form.replaceWith(success);
+        document.body.classList.add('lead-sent');
         success.focus();
       });
     });
@@ -418,11 +452,14 @@
     };
     var obs = new IntersectionObserver(onEnter, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
     // маршрут и рейс — сюжетные блоки: стартуют, когда поднялись примерно до середины экрана
-    var obsLate = new IntersectionObserver(onEnter, { rootMargin: '0px 0px -40% 0px', threshold: 0 });
+    var obsLate = new IntersectionObserver(onEnter, { rootMargin: '0px 0px -25% 0px', threshold: 0 });
 
     var armed = false;
+    // при переходе по якорю браузер сам прокручивает страницу — эту прокрутку не считаем действием посетителя
+    var armReady = !location.hash;
+    if (!armReady) setTimeout(function () { armReady = true; }, 1200);
     function arm() {
-      if (armed) return;
+      if (armed || !armReady) return;
       armed = true;
       var vh = window.innerHeight;
       targets.forEach(function (el) {
