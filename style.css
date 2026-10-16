@@ -595,13 +595,19 @@ dialog.lightbox::backdrop { background: rgba(4, 6, 11, .82); }
   /* Анимации прокрутки стартуют из видимого состояния: в покое всё на месте,
      а класс .is-in ставится чуть раньше, чем блок въедет в экран, и проигрывает въезд. */
   /* .pending — блок ниже экрана ждёт въезда; стартовые значения совпадают с первым кадром анимаций */
-  [data-reveal].pending { opacity: 0; transform: translateY(24px); }
+  [data-reveal].pending { opacity: 0; transform: translateY(48px); }
+  [data-reveal="img"].pending { opacity: 1; transform: none; clip-path: inset(100% 0 0 0); }
+  [data-reveal="title"].pending { opacity: 0; transform: translateY(60%); clip-path: inset(0 0 100% 0); }
   .steps.pending::after { transform: scaleX(0); }
   .steps.pending .step { opacity: .2; transform: translateY(10px); }
   .flight.pending .flight-plane { left: 0; opacity: 0; }
   @media (max-width: 959px) { .steps.pending::after { transform: scaleY(0); } }
-  [data-reveal].is-in { animation: reveal-in .9s cubic-bezier(.2, .7, .1, 1) both; }
-  @keyframes reveal-in { from { opacity: 0; transform: translateY(24px); } }
+  [data-reveal].is-in { animation: reveal-in 1.1s cubic-bezier(.16, 1, .3, 1) var(--d, 0s) both; }
+  @keyframes reveal-in { from { opacity: 0; transform: translateY(48px); } }
+  [data-reveal="img"].is-in { animation: img-in 1.4s cubic-bezier(.76, 0, .24, 1) var(--d, 0s) both; }
+  @keyframes img-in { from { clip-path: inset(100% 0 0 0); transform: scale(1.18); } to { clip-path: inset(0 0 0 0); transform: none; } }
+  [data-reveal="title"].is-in { animation: title-in 1.2s cubic-bezier(.16, 1, .3, 1) both; }
+  @keyframes title-in { from { opacity: 0; transform: translateY(60%); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); } }
 
   /* маршрут: поверх серой линии прорисовывается синяя, шаги загораются по очереди */
   .steps.is-in::after { animation: draw-x 1.6s cubic-bezier(.6, 0, .2, 1) both; }
@@ -775,7 +781,7 @@ dialog.lightbox::backdrop { background: rgba(4, 6, 11, .82); }
 .site-footer li a { display: inline-block; padding-block: 8px; }
 .crumbs a { display: inline-block; padding-block: 10px; margin-block: -10px; }
 @media (prefers-reduced-motion: no-preference) {
-  .form-success { animation: reveal-in .6s cubic-bezier(.2, .7, .1, 1) both; }
+  .form-success { animation: reveal-in .7s cubic-bezier(.16, 1, .3, 1) both; }
 }
 .hero h1 { hyphens: auto; -webkit-hyphens: auto; }
 .split .w { max-width: 100%; }

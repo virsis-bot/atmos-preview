@@ -320,6 +320,32 @@
 
   /* Анимации прокрутки. Пока посетитель не прокручивал, всё видно (превью, скриншоты, кто не листает).
      С первой прокрутки блоки ниже экрана незаметно прячутся (.pending) и въезжают, когда до них доходят. */
+  /* Каждый элемент списков и сеток въезжает отдельно, с задержкой по порядку */
+  safe('tag-reveal', function () {
+    var groups = ['.problems > li', '.services > .service', '.docs > *', '.team > *', '.quotes > *', '.letters > *',
+      '.faq > details', '.pluses > li', '.benefits > *', '.figures > *', '.cert-points > li', '.ticker li'];
+    groups.forEach(function (sel) {
+      var parents = new Set();
+      document.querySelectorAll(sel).forEach(function (el) { parents.add(el.parentElement); });
+      parents.forEach(function (parent) {
+        var i = 0;
+        Array.prototype.forEach.call(parent.children, function (el) {
+          if (!el.matches(sel) || el.hasAttribute('data-reveal')) return;
+          el.setAttribute('data-reveal', '');
+          el.style.setProperty('--d', Math.min(i++, 7) * 90 + 'ms');
+        });
+      });
+    });
+    // фото: раскрываются шторкой снизу вверх
+    document.querySelectorAll('.person img, .photo-band-media img, .cert-block-media img').forEach(function (img) {
+      img.setAttribute('data-reveal', 'img');
+    });
+    // заголовки секций поднимаются из-под строки
+    document.querySelectorAll('.section-head h2, .photo-band h2, .cert-block h2, .final h2').forEach(function (h) {
+      h.setAttribute('data-reveal', 'title');
+    });
+  });
+
   var targets = Array.prototype.slice.call(document.querySelectorAll('[data-reveal], .steps, .flight'));
   var counters = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
   var fmt = function (v, dec) { return v.toLocaleString('ru-RU', { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: v >= 10000 }).replace(/\u00a0/g, ' '); };
@@ -344,8 +370,12 @@
         obs.unobserve(e.target);
         var el = e.target;
         if (el.hasAttribute('data-count')) { countUp(el); return; }
-        el.classList.remove('pending');
-        el.classList.add('is-in');
+        // фото со шторкой (clip-path) отслеживаем через родителя — у скрытой картинки нет видимой площади
+        [el].concat(el._revealTargets || []).forEach(function (t) {
+          if (!t.classList.contains('pending')) return;
+          t.classList.remove('pending');
+          t.classList.add('is-in');
+        });
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
 
@@ -355,7 +385,15 @@
       armed = true;
       var vh = window.innerHeight;
       targets.forEach(function (el) {
-        if (el.getBoundingClientRect().top > vh) { el.classList.add('pending'); obs.observe(el); }
+        if (el.getBoundingClientRect().top <= vh) return;
+        el.classList.add('pending');
+        if (el.getAttribute('data-reveal') === 'img') {
+          var trigger = el.closest('picture') || el.parentElement;
+          (trigger._revealTargets = trigger._revealTargets || []).push(el);
+          obs.observe(trigger);
+        } else {
+          obs.observe(el);
+        }
       });
       counters.forEach(function (el) {
         if (el.getBoundingClientRect().top > vh) {
