@@ -234,6 +234,32 @@
     });
   });
 
+  /* ---------- Заявки: письмо на info@atmos.expert через FormSubmit ---------- */
+  // Первое письмо придёт с просьбой подтвердить адрес — до подтверждения заявки не доставляются.
+  var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/info@atmos.expert';
+
+  function leadData(form) {
+    var data = {};
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.name === 'consent' || el.disabled || el.closest('[hidden]')) return;
+      var value = (el.value || '').trim();
+      if (!value) return;
+      var label = form.querySelector('label[for="' + el.id + '"]');
+      var key = label ? label.textContent.replace('*', '').trim() : el.name;
+      data[key] = value;
+    });
+    var params = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) {
+      if (params.get(k)) data[k] = params.get(k);
+    });
+    data['Страница'] = document.title + ' — ' + location.href;
+    data['Согласие на обработку ПДн'] = 'да';
+    data._subject = 'Заявка с сайта: ' + (data['Какой документ нужен'] || data['Услуга'] || 'обратный звонок') + ', ' + (data['Телефон'] || '');
+    data._template = 'table';
+    data._captcha = 'false';
+    return data;
+  }
+
   /* ---------- Формы: валидация и состояние «Спасибо» ---------- */
   safe('forms', function () {
     function showError(field, errorEl, message) {
@@ -274,22 +300,52 @@
           }
         }
         if (firstInvalid) { firstInvalid.focus(); return; }
+        if (form.classList.contains('is-sending')) return;
 
-        // TODO: подключить CRM-форму Битрикс24 при переносе
-        // Сейчас данные никуда не отправляются — показываем состояние успеха.
         var phoneLink = document.querySelector('.header-phone, .nav-phone');
-        var success = document.createElement('div');
-        success.className = 'form-success';
-        success.setAttribute('role', 'status');
-        success.setAttribute('tabindex', '-1');
-        success.innerHTML =
-          '<span class="form-success-mark" aria-hidden="true"></span>' +
-          '<h3>Заявка принята</h3>' +
-          '<p>Перезвоним, уточним детали и назовём цену и срок.</p>' +
-          (phoneLink ? '<p class="form-success-alt">Если срочно — позвоните: <a href="' + phoneLink.getAttribute('href') + '">' + phoneLink.textContent.trim() + '</a></p>' : '');
-        form.replaceWith(success);
-        document.body.classList.add('lead-sent');
-        success.focus();
+        var callHtml = phoneLink ? '<a href="' + phoneLink.getAttribute('href') + '">' + phoneLink.textContent.trim() + '</a>' : '';
+
+        function done() {
+          var success = document.createElement('div');
+          success.className = 'form-success';
+          success.setAttribute('role', 'status');
+          success.setAttribute('tabindex', '-1');
+          success.innerHTML =
+            '<span class="form-success-mark" aria-hidden="true"></span>' +
+            '<h3>Заявка принята</h3>' +
+            '<p>Перезвоним, уточним детали и назовём цену и срок.</p>' +
+            (callHtml ? '<p class="form-success-alt">Если срочно — позвоните: ' + callHtml + '</p>' : '');
+          form.replaceWith(success);
+          document.body.classList.add('lead-sent');
+          success.focus();
+        }
+
+        // Локально (разработка и автотесты) заявку не отправляем
+        if (/^(localhost|127\.0\.0\.1|)$/.test(location.hostname)) { done(); return; }
+
+        var submitBtn = form.querySelector('[type="submit"]');
+        var btnText = submitBtn ? submitBtn.textContent : '';
+        var failEl = form.querySelector('.form-fail');
+        form.classList.add('is-sending');
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Отправляем…'; }
+        if (failEl) failEl.remove();
+
+        fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(leadData(form))
+        }).then(function (r) { return r.json(); }).then(function (res) {
+          if (String(res.success) !== 'true') throw new Error(res.message || 'not sent');
+          done();
+        }).catch(function () {
+          form.classList.remove('is-sending');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = btnText; }
+          var fail = document.createElement('p');
+          fail.className = 'form-fail field-error';
+          fail.setAttribute('role', 'alert');
+          fail.innerHTML = 'Не удалось отправить заявку. Попробуйте ещё раз' + (callHtml ? ' или позвоните: ' + callHtml : '') + '.';
+          (submitBtn || form.lastElementChild).insertAdjacentElement('afterend', fail);
+        });
       });
     });
   });
