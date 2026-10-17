@@ -234,9 +234,10 @@
     });
   });
 
-  /* ---------- Заявки: письмо на info@atmos.expert через FormSubmit ---------- */
-  // Первое письмо придёт с просьбой подтвердить адрес — до подтверждения заявки не доставляются.
-  var LEAD_ENDPOINT = 'https://formsubmit.co/ajax/info@atmos.expert';
+  /* ---------- Заявки: send.php на сервере пишет на info@atmos.expert, из письма — лид в Битрикс24 ---------- */
+  var LEAD_ENDPOINT = '/send.php';
+  // Локально (разработка, автотесты) и на стенде (нет PHP) заявку не отправляем, только показываем «Спасибо»
+  var LEAD_DEMO = /^(localhost|127\.0\.0\.1|)$|\.github\.io$|\.vercel\.app$/.test(location.hostname);
 
   function leadData(form) {
     var data = {};
@@ -254,9 +255,6 @@
     });
     data['Страница'] = document.title + ' — ' + location.href;
     data['Согласие на обработку ПДн'] = 'да';
-    data._subject = 'Заявка с сайта: ' + (data['Какой документ нужен'] || data['Услуга'] || 'обратный звонок') + ', ' + (data['Телефон'] || '');
-    data._template = 'table';
-    data._captcha = 'false';
     return data;
   }
 
@@ -320,8 +318,7 @@
           success.focus();
         }
 
-        // Локально (разработка и автотесты) заявку не отправляем
-        if (/^(localhost|127\.0\.0\.1|)$/.test(location.hostname)) { done(); return; }
+        if (LEAD_DEMO) { done(); return; }
 
         var submitBtn = form.querySelector('[type="submit"]');
         var btnText = submitBtn ? submitBtn.textContent : '';
@@ -335,7 +332,7 @@
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(leadData(form))
         }).then(function (r) { return r.json(); }).then(function (res) {
-          if (String(res.success) !== 'true') throw new Error(res.message || 'not sent');
+          if (!res.ok) throw new Error('not sent');
           done();
         }).catch(function () {
           form.classList.remove('is-sending');
